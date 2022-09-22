@@ -162,16 +162,16 @@ def lucky():
     if (Whether_lucky != False):
         try:
             conn = http.client.HTTPSConnection('api.tianapi.com')  # 接口域名
-            params = urllib.parse.urlencode({'key': '14f2f43cc279f330e5e53997d2e60362', 'astro': '双鱼座'})
+            params = urllib.parse.urlencode({'key': tianxing_API, 'astro': astro})
             headers = {'Content-type': 'application/x-www-form-urlencoded'}
             conn.request('POST', '/star/index', params, headers)
             res = conn.getresponse()
             data = res.read()
             data = json.loads(data)
-            return data["newslist"][8]["content"]
-            # data = "爱情指数：" + str(data["newslist"][1]["content"]) + "工作指数：" + str(
-            #     data["newslist"][2]["content"]) + "\n今日概述：" + str(data["newslist"][8]["content"])
-            # return data
+#             return data["newslist"][8]["content"]
+            data = "爱情指数：" + str(data["newslist"][1]["content"]) + "工作指数：" + str(
+                data["newslist"][2]["content"]) + "\n今日概述：" + str(data["newslist"][8]["content"])
+            return data
         except:
             return ("星座运势API调取错误，请检查API是否正确申请或是否填写正确")
 
@@ -215,7 +215,7 @@ def tip():
         except:
             return ("天气预报API调取错误，请检查API是否正确申请或是否填写正确")
             
- '''
+
 
 # 降雨概率大于60提示出门带伞
 def yusand():
@@ -239,6 +239,8 @@ def zwxtips():
         tips3 = str('（紫外线不强可以放心的去户外啦）')
         return tips3
 
+'''
+
 # 空气质量
 def aqi():
     if (Whether_aqi != False):
@@ -257,8 +259,7 @@ def aqi():
 
 
 # 推送信息
-def send_message(to_user, access_token, city_name, weather, max_temperature, min_temperature, pipi, lizhi, pop, tips,
-                 wind, windsc, vis, uvindex, yusan, humidity, note_en, note_ch, health_tip, lucky_,  quality, zwxtips, wenhou, bobao, empty):
+def send_message(to_user, access_token, city_name, weather, max_temperature, min_temperature, pipi, lizhi, note_en, note_ch, health_tip, lucky_,  quality,  wenhou, bobao, empty):
     url = "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token={}".format(access_token)
     week_list = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
     year = localtime().tm_year
@@ -332,42 +333,8 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
                 "color": get_color()
             },
 
-            "pop": {
-                "value": pop,
-                "color": get_color()
-            },
-
             "health": {
                 "value": health_tip,
-                "color": get_color()
-            },
-
-            "tips": {
-                "value": tips,
-                "color": get_color()
-            },
-            "yusan": {
-                "value": yusan,
-                "color": get_color()
-            },
-            "humidity": {
-                "value": humidity,
-                "color": get_color()
-            },
-            "wind": {
-                "value": wind,
-                "color": get_color()
-            },
-            "windsc": {
-                "value": windsc,
-                "color": get_color()
-            },
-            "vis": {
-                "value": vis,
-                "color": get_color()
-            },
-            "uvindex": {
-                "value": uvindex,
                 "color": get_color()
             },
             "quality": {
@@ -380,10 +347,6 @@ def send_message(to_user, access_token, city_name, weather, max_temperature, min
             },
             "bobao": {
                 "value": bobao,
-                "color": get_color()
-            },
-            "zwxtips": {
-                "value": zwxtips,
                 "color": get_color()
             },
             "empty": {
@@ -460,25 +423,24 @@ if __name__ == "__main__":
     # 健康小提示
     health_tip = health()
     # 下雨概率和建议
-    pop, tips, humidity, wind, windsc, vis, uvindex = tip()
+    #pop, tips, humidity, wind, windsc, vis, uvindex = tip()
     # 空气质量
     quality = aqi()
     # 出门带伞提示
-    yusan = yusand()
+    # yusan = yusand()
     # 励志名言
     lizhi = lizhi()
     # 星座运势
     lucky_ = lucky()
     # 紫外线强度提示
-    zwxtips = zwxtips()
+    # zwxtips = zwxtips()
     # 自定义提示内容
     wenhou = str('亲爱的乖宝宝，早上好！记得按时吃早饭午饭晚饭，今天也要开心哦')
     bobao = str(f'下面由我来给宝贝播报今日天气状况') # 下面由我来给宝贝播报今日天气状况 想乖乖的每一天QAQ
     empty = '.'
     # 公众号推送消息
     for user in users:
-        send_message(user, accessToken, city, weather, max_temperature, min_temperature, pipi, lizhi, pop, tips, wind,
-                     windsc, vis, uvindex, yusan, humidity, note_en, note_ch, health_tip, lucky_, quality, zwxtips, wenhou, bobao,empty)
+        send_message(user, accessToken, city, weather, max_temperature, min_temperature, pipi, lizhi, note_en, note_ch, health_tip, lucky_, quality, wenhou, bobao,empty)
     import time
     time_duration = 3.5
     time.sleep(time_duration)
