@@ -193,6 +193,7 @@ def lizhi():
 
 
 # 下雨概率和建议
+'''
 def tip():
     if (Whether_tip != False):
         try:
@@ -213,6 +214,8 @@ def tip():
             return pop, tips, humidity, wind, windsc, vis, uvindex
         except:
             return ("天气预报API调取错误，请检查API是否正确申请或是否填写正确")
+            
+ '''
 
 # 降雨概率大于60提示出门带伞
 def yusand():
