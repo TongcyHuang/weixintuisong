@@ -438,7 +438,7 @@ if __name__ == "__main__":
     # 获取天行API
     tianxing_API = config["tianxing_API"]
     # 是否开启天气预报API
-    Whether_tip = config["Whether_tip"]
+    # Whether_tip = config["Whether_tip"]
     # 是否启用词霸每日一句
     Whether_Eng = config["Whether_Eng"]
     # 是否启用星座API
